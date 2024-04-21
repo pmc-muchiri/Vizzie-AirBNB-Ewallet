@@ -71,36 +71,29 @@ $withdrawal_result = mysqli_query($conn, $withdrawal_query);
                                 <table id="example" class="table table-striped table-bordered second" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>Transaction Code</th>
+                                                
                                                 <th>Email</th>
                                                 <th>Withdrawal Amount</th>
-                                                <th>Currency</th>
                                                 <th>Date/Time</th>
-                                                <th>Method</th>
                                                 <th>Status</th>
-                                                <th>Remarks</th>
-                                                <th>Action</th>
-                                                
+                                                <!-- <th>Action</th>    -->
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             while ($row = mysqli_fetch_assoc($withdrawal_result)) {
                                                 echo "<tr>";
-                                                echo "<td>" . $row['transaction_code'] . "</td>";
+                                                
                                                 echo "<td>" . $row['email'] . "</td>";
-                                                echo "<td>" . $row['withdrawal_amount'] . "</td>";
-                                                echo "<td>" . $row['currency'] . "</td>";
+                                                echo "<td>" . $row['total_withdrawal'] . "</td>";
                                                 echo "<td>" . $row['created_at'] . "</td>";
-                                                echo "<td><img src='../assets/images/{$row['method']}.png' width='70'/></td>";
                                                 echo "<td><span class='badge bg-success text-white'>{$row['status']}</span></td>";
-                                                echo "<td>{$row['remarks']}</td>";
                                                 echo "<td class='align-right'>";
-                                                echo "<form action='process_withdrawal.php' method='post'>";
-                                                echo "<input type='hidden' name='transaction_id' value='{$row['id']}' />";
-                                                echo "<button class='btn btn-sm btn-success' type='submit' name='action' value='approve'>Approve</button>";
-                                                echo "<button class='btn btn-sm btn-danger' type='submit' name='action' value='reject'>Reject</button>";
-                                                echo "</form>";
+                                                // echo "<form action='process_withdrawal.php' method='post'>";
+                                                // echo "<input type='hidden' name='transaction_id' value='{$row['id']}' />";
+                                                // echo "<button class='btn btn-sm btn-success' type='submit' name='action' value='approve'>Approve</button>";
+                                                // echo "<button class='btn btn-sm btn-danger' type='submit' name='action' value='reject'>Reject</button>";
+                                                // echo "</form>";
                                                 echo "</td>";
                                                 echo "</tr>";
                                             }
@@ -108,15 +101,14 @@ $withdrawal_result = mysqli_query($conn, $withdrawal_query);
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Transaction Code</th>
+                                            <tr>
+                                                
                                                 <th>Email</th>
                                                 <th>Withdrawal Amount</th>
-                                                <th>Currency</th>
                                                 <th>Date/Time</th>
-                                                <th>Method</th>
                                                 <th>Status</th>
-                                                <th>Remarks</th>
-                                                <th>Action</th>
+                                                <!-- <th>Action</th>    -->
+                                            </tr>
                                             </tr>
                                         </tfoot>
                                     </table>

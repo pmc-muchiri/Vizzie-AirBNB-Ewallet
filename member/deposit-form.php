@@ -22,6 +22,13 @@ if ($email_row = mysqli_fetch_assoc($email_result)) {
 } else {
     $email = ''; // Set default email value if user email is not found
 }
+function generateRandomChar() {
+    return chr(mt_rand(65, 90)); // ASCII values for A-Z
+}
+
+// Generate a unique transaction code
+$transaction_code = 'TRC' . mt_rand(1, 9) . '-' . generateRandomChar() . generateRandomChar() . generateRandomChar() . date('y');
+
 
 if (isset($_POST['submit'])) {
     // Validate that deposit_amount is not empty
@@ -62,10 +69,13 @@ if (isset($_POST['submit'])) {
             
             // header('Location: index.php');
         } else {
-            $message = 'Failed to store deposit information. Please try again later.';
+            $message = array();
+            $message [] = 'Failed to store deposit information. Please try again later.';
         }
     } else {
-        $message = 'Deposit amount cannot be empty.';
+        $message = array(); 
+        $message[] = 'Deposit amount cannot be empty.';
+        // $message = 'Deposit amount cannot be empty.';
     }
 }
 ?>
@@ -106,13 +116,16 @@ if (isset($_POST['submit'])) {
                                     </ol>
                                 </nav>
                             </div></br>
-                            <?php
-                    if (isset($message)) {
-                        foreach ($message as $msg) {
-                            echo '<div class="alert alert-info" role="alert">' . $msg . '</div>';
-                        }
-                    }
-                    ?>
+                            <div id="messageContainer" class="text-center">
+                                <?php
+                                if (isset($message)) {
+                                    foreach ($message as $msg) {
+                                        echo '<div class="alert alert-info" role="alert">' . $msg . '</div>';
+                                    }
+                                }
+                                ?>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -132,7 +145,7 @@ if (isset($_POST['submit'])) {
                                                 <div class="row">
                                                     <div class="col-md-12 mb-3">
                                                         <label for="firstName">Transaction Code</label>
-                                                        <input type="text" class="form-control" name="transaction_code" placeholder="TRSCTN-897-21" required="">
+                                                        <input type="text" class="form-control" name="transaction_code" value="<?php echo $transaction_code; ?>" required readonly>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="lastName">Email</label>
@@ -194,6 +207,14 @@ if (isset($_POST['submit'])) {
     <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
     <script src="../assets/vendor/multi-select/js/jquery.multi-select.js"></script>
     <script src="../assets/libs/js/main-js.js"></script>
+    <script>
+        setTimeout(function() {
+            var messageContainer = document.getElementById('messageContainer');
+            if (messageContainer) {
+                messageContainer.style.display = 'none';
+            }
+        }, 3000); // 3 seconds
+    </script>
     
 </body>
  
