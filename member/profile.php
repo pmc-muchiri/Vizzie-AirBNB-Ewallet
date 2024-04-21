@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include '/opt/lampp/htdocs/vizzie_system/web/config.php';
+include '../web/config.php';
 
 session_start();
 

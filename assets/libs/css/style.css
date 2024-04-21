@@ -2656,21 +2656,21 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
 
 .btn-primary {
     color: #fff;
-    background-color: #5969ff;
-    border-color: #5969ff;
+    background-color: #162938;
+    border-color: #162938;
 }
 
 .btn-primary:hover {
     color: #fff;
-    background-color: #4656e9;
-    border-color: #4656e9;
+    background-color: #162938;
+    border-color: #162938
 }
 
 .btn-primary.focus,
 .btn-primary:focus {
     color: #fff;
-    background-color: #4656e9;
-    border-color: #4656e9;
+    background-color: #162938;
+    border-color: #162938;
     box-shadow: 0 0 0 1px rgb(37, 52, 158);
 }
 
