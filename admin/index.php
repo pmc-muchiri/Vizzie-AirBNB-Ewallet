@@ -86,6 +86,7 @@ $total_deposit = $row_transactions['total_deposit'];
 	                            </div>
 	                        </div>
 	                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <a href="member.php">
 	                            <div class="card">
 	                                <div class="card-body">
 	                                    <div class="d-inline-block">
@@ -99,6 +100,7 @@ $total_deposit = $row_transactions['total_deposit'];
 	                            </div>
 	                        </div>
 	                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <a href="withdraw.php">
 	                            <div class="card">
 	                                <div class="card-body">
 	                                    <div class="d-inline-block">
@@ -112,6 +114,7 @@ $total_deposit = $row_transactions['total_deposit'];
 	                            </div>
 	                        </div>
                             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <a href="deposit.php">
 	                            <div class="card">
 	                                <div class="card-body">
 	                                    <div class="d-inline-block">
@@ -126,7 +129,7 @@ $total_deposit = $row_transactions['total_deposit'];
 	                        </div>
                     </div>
                     <div class="row">
-                        <!-- Other content if any -->
+                        
                     </div>
                 </div>
             </div>

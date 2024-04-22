@@ -49,7 +49,7 @@ $withdrawal_result = mysqli_query($conn, $withdrawal_query);
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Withdrawal</a></li>
+                                        <li class="breadcrumb-item"><a href="withdraw.php" class="breadcrumb-link">Withdrawal</a></li>
                                     </ol>
                                 </nav>
                             </div>
@@ -71,44 +71,30 @@ $withdrawal_result = mysqli_query($conn, $withdrawal_query);
                                 <table id="example" class="table table-striped table-bordered second" style="width:100%">
                                         <thead>
                                             <tr>
-                                                
                                                 <th>Email</th>
                                                 <th>Withdrawal Amount</th>
                                                 <th>Date/Time</th>
                                                 <th>Status</th>
-                                                <!-- <th>Action</th>    -->
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             while ($row = mysqli_fetch_assoc($withdrawal_result)) {
                                                 echo "<tr>";
-                                                
                                                 echo "<td>" . $row['email'] . "</td>";
                                                 echo "<td>" . $row['total_withdrawal'] . "</td>";
                                                 echo "<td>" . $row['created_at'] . "</td>";
                                                 echo "<td><span class='badge bg-success text-white'>{$row['status']}</span></td>";
-                                                echo "<td class='align-right'>";
-                                                // echo "<form action='process_withdrawal.php' method='post'>";
-                                                // echo "<input type='hidden' name='transaction_id' value='{$row['id']}' />";
-                                                // echo "<button class='btn btn-sm btn-success' type='submit' name='action' value='approve'>Approve</button>";
-                                                // echo "<button class='btn btn-sm btn-danger' type='submit' name='action' value='reject'>Reject</button>";
-                                                // echo "</form>";
-                                                echo "</td>";
                                                 echo "</tr>";
                                             }
                                             ?>
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                            <tr>
-                                                
                                                 <th>Email</th>
                                                 <th>Withdrawal Amount</th>
                                                 <th>Date/Time</th>
                                                 <th>Status</th>
-                                                <!-- <th>Action</th>    -->
-                                            </tr>
                                             </tr>
                                         </tfoot>
                                     </table>
