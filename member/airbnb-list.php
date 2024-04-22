@@ -27,7 +27,7 @@ if (isset($_POST['pay_now'])) {
         $email = $row['email'];
 
         // Fetch the current total deposit amount of the user
-        $query_get_total_deposit = "SELECT total_deposit AS total_deposits FROM user_deposit_total WHERE user_id = $user_id";
+        $query_get_total_deposit = "SELECT current_deposit AS total_deposits FROM user_deposit_total WHERE user_id = $user_id";
         $result_get_total_deposit = mysqli_query($conn, $query_get_total_deposit);
 
         if ($result_get_total_deposit) {
@@ -38,7 +38,7 @@ if (isset($_POST['pay_now'])) {
             if ($current_total_deposit !== null && $current_total_deposit >= $amount) {
                 // Deduct the amount from the user's total deposit
                 $new_total_deposit = $current_total_deposit - $amount;
-                $query_update_deposit = "UPDATE user_deposit_total SET total_deposit = $new_total_deposit WHERE user_id = $user_id";
+                $query_update_deposit = "UPDATE user_deposit_total SET current_deposit = $new_total_deposit WHERE user_id = $user_id";
                 $result_update_deposit = mysqli_query($conn, $query_update_deposit);
 
                 if ($result_update_deposit) {

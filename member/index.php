@@ -14,7 +14,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 // Fetch current money from the deposits table for the current user
-$query_current_money = "SELECT total_deposit AS current_money FROM user_deposit_total WHERE user_id = ?";
+$query_current_money = "SELECT current_deposit AS current_money FROM user_deposit_total WHERE user_id = ?";
 $stmt_current_money = $conn->prepare($query_current_money);
 $stmt_current_money->bind_param("i", $user_id);
 $stmt_current_money->execute();

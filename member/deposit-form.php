@@ -60,25 +60,31 @@ if (isset($_POST['submit'])) {
             // Update current deposit amount
             $new_deposit = $current_deposit + $deposit_amount;
 
-            // Update user_deposit_total table with new deposit amount
-            $update_total_deposit_query = "UPDATE user_deposit_total SET current_deposit = '$new_deposit', total_deposit = '$total_deposit' WHERE user_id = '$user_id'";
-            mysqli_query($conn, $update_total_deposit_query);
+            // Check if the user's total deposit already exists in user_deposit_total table
+            $check_total_deposit_query = "SELECT * FROM user_deposit_total WHERE user_id = '$user_id'";
+            $check_total_deposit_result = mysqli_query($conn, $check_total_deposit_query);
 
-            $message = array(); 
+            if (mysqli_num_rows($check_total_deposit_result) > 0) {
+                // Update total deposit amount
+                $update_total_deposit_query = "UPDATE user_deposit_total SET current_deposit = '$new_deposit', total_deposit = '$total_deposit' WHERE user_id = '$user_id'";
+                mysqli_query($conn, $update_total_deposit_query);
+            } else {
+                // Insert new record
+                $insert_total_deposit_query = "INSERT INTO user_deposit_total (user_id, current_deposit, total_deposit) VALUES ('$user_id', '$new_deposit', '$total_deposit')";
+                mysqli_query($conn, $insert_total_deposit_query);
+            }
+
             $message[] = 'Deposited successfully!';
-            
-            // header('Location: index.php');
         } else {
-            $message = array();
-            $message [] = 'Failed to store deposit information. Please try again later.';
+            $message[] = 'Failed to store deposit information. Please try again later.';
         }
     } else {
-        $message = array(); 
         $message[] = 'Deposit amount cannot be empty.';
-        // $message = 'Deposit amount cannot be empty.';
     }
 }
 ?>
+
+
 
 
 
