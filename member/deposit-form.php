@@ -22,13 +22,13 @@ if ($email_row = mysqli_fetch_assoc($email_result)) {
 } else {
     $email = ''; // Set default email value if user email is not found
 }
+
 function generateRandomChar() {
     return chr(mt_rand(65, 90)); // ASCII values for A-Z
 }
 
 // Generate a unique transaction code
 $transaction_code = 'TRC' . mt_rand(1, 9) . '-' . generateRandomChar() . generateRandomChar() . generateRandomChar() . date('y');
-
 
 if (isset($_POST['submit'])) {
     // Validate that deposit_amount is not empty
@@ -51,19 +51,19 @@ if (isset($_POST['submit'])) {
             $total_deposit_row = mysqli_fetch_assoc($total_deposit_result);
             $total_deposit = $total_deposit_row['total_deposit'];
 
-            // Check if the user's total deposit already exists in user_deposit_total table
-            $check_total_deposit_query = "SELECT * FROM user_deposit_total WHERE user_id = '$user_id'";
-            $check_total_deposit_result = mysqli_query($conn, $check_total_deposit_query);
+            // Fetch current deposit amount from user_deposit_total table
+            $current_deposit_query = "SELECT current_deposit FROM user_deposit_total WHERE user_id = '$user_id'";
+            $current_deposit_result = mysqli_query($conn, $current_deposit_query);
+            $current_deposit_row = mysqli_fetch_assoc($current_deposit_result);
+            $current_deposit = $current_deposit_row['current_deposit'];
 
-            if (mysqli_num_rows($check_total_deposit_result) > 0) {
-                // Update total deposit amount
-                $update_total_deposit_query = "UPDATE user_deposit_total SET total_deposit = '$total_deposit' WHERE user_id = '$user_id'";
-                mysqli_query($conn, $update_total_deposit_query);
-            } else {
-                // Insert new record
-                $insert_total_deposit_query = "INSERT INTO user_deposit_total (user_id, total_deposit) VALUES ('$user_id', '$total_deposit')";
-                mysqli_query($conn, $insert_total_deposit_query);
-            }
+            // Update current deposit amount
+            $new_deposit = $current_deposit + $deposit_amount;
+
+            // Update user_deposit_total table with new deposit amount
+            $update_total_deposit_query = "UPDATE user_deposit_total SET current_deposit = '$new_deposit', total_deposit = '$total_deposit' WHERE user_id = '$user_id'";
+            mysqli_query($conn, $update_total_deposit_query);
+
             $message = array(); 
             $message[] = 'Deposited successfully!';
             

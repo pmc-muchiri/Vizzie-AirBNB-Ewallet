@@ -91,7 +91,8 @@ $total_withdrawals = $row_withdrawals['total_withdrawals'];
                                 <h5 class="card-header">Current Money</h5>
                                 <div class="card-body">
                                     <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1"><?php echo 'ksh ' . $current_money; ?></h1>
+                                    <h1 class="mb-1"><?php echo 'ksh ' . (!empty($current_money) ? $current_money : '0.00'); ?></h1>
+
                                     </div>
                                 </div>
                                 <div class="card-footer text-center bg-white">
