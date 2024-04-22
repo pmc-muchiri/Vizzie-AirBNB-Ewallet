@@ -1,3 +1,63 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Start the session
+session_start();
+
+// Include database connection
+include '/opt/lampp/htdocs/vizzie_system/web/config.php';
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Prepare and bind parameters
+    $stmt = $conn->prepare("INSERT INTO bnb_details (title, description, price, image_path) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssds", $title, $description, $price, $imagePath);
+
+    // Set parameters
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+    $price = $_POST['price'];
+
+    // Check if file is uploaded successfully
+    if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        // Generate a unique filename to prevent collisions
+        $fileName = uniqid() . '_' . basename($_FILES['image']['name']);
+        $imagePath = 'upload_images/' . $fileName;
+
+        // Create the upload_images directory if it doesn't exist
+        if (!file_exists('upload_images')) {
+            mkdir('upload_images', 0777, true);
+        }
+
+        // Move uploaded file to the uploads directory
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $imagePath)) {
+            // Execute the prepared statement
+            if ($stmt->execute()) {
+                $_SESSION['update-bnb'] = "New Airbnb option added successfully.";
+            } else {
+                $_SESSION['update-bnb'] = "Error: " . $stmt->error;
+            }
+        } else {
+            $_SESSION['update-bnb'] = "Error moving uploaded file.";
+        }
+    } else {
+        $_SESSION['update-bnb'] = "Error uploading file: " . $_FILES['image']['error'];
+    }
+
+    // Close statement
+    $stmt->close();
+
+    // Close connection
+    $conn->close();
+}
+if (isset($_SESSION['update-bnb'])) {
+    $message = array($_SESSION['update-bnb']);
+    // Unset the session variable
+    unset($_SESSION['update-bnb']);
+}
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -33,6 +93,15 @@
                                         <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Airbnb</a></li>
                                     </ol>
                                 </nav>
+                            </div></br>
+                            <div id="messageContainer" class="text-center">
+                                <?php
+                                if (isset($message)) {
+                                    foreach ($message as $msg) {
+                                        echo '<div class="alert alert-info" role="alert">' . $msg . '</div>';
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -48,7 +117,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Add Airbnb Option</h5>
-                                <form action="process-add-airbnb.php" method="POST" enctype="multipart/form-data">
+                                <form action="update-bnb.php" method="POST" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="title">Title</label>
                                         <input type="text" class="form-control" id="title" name="title" required>
@@ -65,7 +134,7 @@
                                         <label for="image">Image</label>
                                         <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                                 </form>
                             </div>
                         </div>
@@ -89,6 +158,14 @@
     <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
     <script src="../assets/vendor/multi-select/js/jquery.multi-select.js"></script>
     <script src="../assets/libs/js/main-js.js"></script>
+    <script>
+        setTimeout(function() {
+            var messageContainer = document.getElementById('messageContainer');
+            if (messageContainer) {
+                messageContainer.style.display = 'none';
+            }
+        }, 3000); // 3 seconds
+    </script>
     
 </body>
  
