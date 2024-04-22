@@ -15,6 +15,12 @@ $query_transactions = "SELECT COUNT(*) AS total_transactions FROM withdrawals WH
 $result_transactions = mysqli_query($conn, $query_transactions);
 $row_transactions = mysqli_fetch_assoc($result_transactions);
 $total_transactions = $row_transactions['total_transactions'];
+
+// Fetch number of daily transactions from the database
+$query_transactions = "SELECT COUNT(*) AS total_deposit FROM deposits WHERE DATE(created_at) = CURDATE()";
+$result_transactions = mysqli_query($conn, $query_transactions);
+$row_transactions = mysqli_fetch_assoc($result_transactions);
+$total_deposit = $row_transactions['total_deposit'];
 ?>
 
 <!doctype html>
@@ -74,7 +80,7 @@ $total_transactions = $row_transactions['total_transactions'];
 	                                        <h2 class="mb-0">7</h2> 
 	                                    </div>
 	                                    <div class="float-right icon-circle-medium  icon-box-lg  bg-info-light mt-1">
-	                                        <i class="fa fa-airbnb fa-fw fa-sm text-inf"></i>
+                                            <i class="fas fa-home fa-fw fa-sm text-info"></i>
 	                                    </div>
 	                                </div>
 	                            </div>
@@ -96,8 +102,21 @@ $total_transactions = $row_transactions['total_transactions'];
 	                            <div class="card">
 	                                <div class="card-body">
 	                                    <div class="d-inline-block">
-	                                        <h5 class="text-muted">Number of Daily Transactions</h5>
+	                                        <h5 class="text-muted">Number of Daily Withdrawals</h5>
 	                                        <h2 class="mb-0"><?php echo $total_transactions; ?></h2>
+	                                    </div>
+	                                    <div class="float-right icon-circle-medium  icon-box-lg  bg-success-light mt-1">
+	                                        <i class="fa fa-chart-line fa-fw fa-sm text-success"></i>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+	                            <div class="card">
+	                                <div class="card-body">
+	                                    <div class="d-inline-block">
+	                                        <h5 class="text-muted">Number of Daily Deposits</h5>
+	                                        <h2 class="mb-0"><?php echo $total_deposit; ?></h2>
 	                                    </div>
 	                                    <div class="float-right icon-circle-medium  icon-box-lg  bg-success-light mt-1">
 	                                        <i class="fa fa-chart-line fa-fw fa-sm text-success"></i>
