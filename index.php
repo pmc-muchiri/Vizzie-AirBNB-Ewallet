@@ -32,7 +32,7 @@ if(isset($_POST['submit'])){
 
 <!doctype html>
 <html lang="en">
- 
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -45,28 +45,63 @@ if(isset($_POST['submit'])){
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
     <style>
-    html,
-    body {
-        height: 100%;
-    }
+        html,
+        body {
+            height: 100%;
+        }
 
-    body {
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-align: center;
-        align-items: center;
-        padding-top: 40px;
-        padding-bottom: 40px;
-    }
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .splash-container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .remember-forgot {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            width: 100%;
+        }
+
+        .login-register {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .register-link {
+            color: #007bff;
+        }
     </style>
 </head>
 
 <body>
-    <!-- ============================================================== -->
-    <!-- login page  -->
-    <!-- ============================================================== -->
+    <!-- login page -->
     <div class="splash-container">
-        <div class="card ">
+        <div class="card">
             <div class="card-body">
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="card-header">
@@ -81,29 +116,26 @@ if(isset($_POST['submit'])){
                     }
                     ?>
                     <div class="form-group">
-                        <input type="email" name="email" id="username" placeholder="email" class="form-control form-control-lg" autocomplete="off" required>
+                        <input type="email" name="email" id="username" placeholder="Email" class="form-control form-control-lg" autocomplete="off" required>
                     </div>
                     <div class="form-group">
-                        <input class="form-control form-control-lg" name="password" id="password" type="password" placeholder="password" required>
+                        <input class="form-control form-control-lg" name="password" id="password" type="password" placeholder="Password" required>
                     </div>
                     <div class="remember-forgot">
-                        <label><input type="checkbox">Remember Me</label>
+                        <label><input type="checkbox"> Remember Me</label>
                         <a href="#" class="">Forgot Password?</a>
                     </div>
-                    <button type="submit" name="submit" class="btn">Login as Member</button>
+                    <button type="submit" name="submit" class="btn btn-primary">Login as Member</button>
                     <div class="login-register">
-                        <p>Don't have An Account?<a href="register.php" class="register-link"> Register</a> </p>
+                        <p>Don't have an account?<a href="register.php" class="register-link"> Register</a></p>
+                        <p><a href="index.admin.php" class="register-link">Admin</a></p>
                     </div>
-                    <div class="login-register">
-                        <p><a href="index.admin.php" class="register-link"> Admin</a></div> </p>
+                </form>
             </div>
-            </form>
         </div>
     </div>
+    <!-- end login page -->
 
-    <!-- ============================================================== -->
-    <!-- end login page  -->
-    <!-- ============================================================== -->
     <!-- Optional JavaScript -->
     <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
