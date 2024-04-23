@@ -54,8 +54,8 @@ if (isset($_POST['add_user'])) {
                             <div class="page-breadcrumb">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Currency</a></li>
+                                        <li class="breadcrumb-item"><a href="index.php" class="breadcrumb-link">Dashboard</a></li>
+                                        <li class="breadcrumb-item"><a href="member.php" class="breadcrumb-link">Member</a></li>
                                     </ol>
                                 </nav>
                             </div>
@@ -74,13 +74,15 @@ if (isset($_POST['add_user'])) {
                                             <h4 class="mb-0">Member Information</h4>
                                         </div>
                                         <div class="card-body">
-                                        <?php
-                                        if (isset($message)) {
-                                            foreach ($message as $msg) {
-                                                echo '<div class="alert alert-info" role="alert">' . $msg . '</div>';
-                                            }
-                                        }
-                                        ?>
+                                            <div id="messageContainer" class="text-center">
+                                                <?php
+                                                if (isset($message)) {
+                                                    foreach ($message as $msg) {
+                                                        echo '<div class="alert alert-info" role="alert">' . $msg . '</div>';
+                                                    }
+                                                }
+                                                ?>
+                                            </div>
                                         <form class="needs-validation" action="" method="post" novalidate>
                                         <div class="row">
                                             <div class="col-md-6 mb-3">

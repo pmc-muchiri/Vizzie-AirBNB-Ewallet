@@ -1,3 +1,24 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Include database connection
+include '/opt/lampp/htdocs/vizzie_system/web/config.php';
+
+session_start();
+
+
+// Fetch currency transactions from the currency table
+$currency_query = "SELECT * FROM currency";
+$currency_result = mysqli_query($conn, $currency_query);
+
+// Check for errors
+if (!$currency_result) {
+    die("Error: " . mysqli_error($conn));
+}
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -47,10 +68,10 @@
                             <h5 class="card-header">List of Currency </h5>
                             <div class="card-body"><a class="btn btn-sm btn-success" href="add-currency.php"><i class="fa fa-fw fa-plus"></i> add currency</a><br><br>
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-bordered first">
+                                <table class="table table-striped table-bordered first">
                                         <thead>
                                             <tr>
-                                                <th>Currency Name</th>
+                                            <th>Currency Name</th>
                                                 <th>Currency Sysmbol</th>
                                                 <th>USD Equivalent</th>
                                                 <th>Status</th>
@@ -58,62 +79,20 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Dollar</td>
-                                                <td><i class="fa fa-fw fa-dollar-sign"></i></td>
-                                                <td>1</td>
-                                                <td><span class="badge bg-success text-white">active</span></td>
-                                                <td class="align-right">
-                                                    <a href="javascript:;" class="text-primary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a> |
-                                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete">
-                                                        <i class="fa fa-trash-alt"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Euro</td>
-                                                <td><i class="fa fa-fw fa-euro-sign"></i></td>
-                                                <td>1.2</td>
-                                                <td><span class="badge bg-success text-white">active</span></td>
-                                                <td class="align-right">
-                                                    <a href="javascript:;" class="text-primary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a> |
-                                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete">
-                                                        <i class="fa fa-trash-alt"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ksh</td>
-                                                <td><i class="fa fa-fw fa-kes"></i>Ksh</td>
-                                                <td>0.8</td>
-                                                <td><span class="badge bg-success text-white">active</span></td>
-                                                <td class="align-right">
-                                                    <a href="javascript:;" class="text-primary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a> |
-                                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete">
-                                                        <i class="fa fa-trash-alt"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Won</td>
-                                                <td><i class="fa fa-fw fa-won-sign"></i></td>
-                                                <td>90</td>
-                                                <td><span class="badge bg-success text-white">active</span></td>
-                                                <td class="align-right">
-                                                    <a href="javascript:;" class="text-primary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a> |
-                                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete">
-                                                        <i class="fa fa-trash-alt"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                            <?php
+                                            while ($row = mysqli_fetch_assoc($currency_result)) {
+                                                echo "<tr>";
+                                                        echo "<td>" . $row['currency_name'] . "</td>";
+                                                        echo "<td>" . $row['currency_symbol'] . "</td>";
+                                                        echo "<td>" . $row['usd_equivalent'] . "</td>";
+                                                        echo "<td>" . $row['status'] . "</td>";
+                                                        echo "<td class='align-right'>";
+                                                        // echo "<a href='edit-currency.php?id=" . $row['id'] . "' class='text-primary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit'><i class='fa fa-edit'></i></a> | ";
+                                                        echo "<a href='delete-currency.php?id=" . $row['id'] . "' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Delete'><i class='fa fa-trash-alt'></i></a>";
+                                                        echo "</td>";
+                                                        echo "</tr>";
+                                            }
+                                            ?>
                                         </tbody>
                                         <tfoot>
                                             <tr>

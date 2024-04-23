@@ -1,100 +1,3 @@
-<?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// Include config file and establish database connection
-include '/opt/lampp/htdocs/vizzie_system/web/config.php';
-
-// Check if the Pay Now button is clicked
-if (isset($_POST['pay_now'])) {
-    // Get the user ID and amount from the form (you may need to adjust this based on your form structure)
-    $user_id = $_POST['user_id'];
-    $amount = $_POST['amount'];
-    
-    // Sanitize input data
-    $user_id = mysqli_real_escape_string($conn, $user_id);
-    $amount = mysqli_real_escape_string($conn, $amount);
-    
-    // Start a transaction
-    mysqli_begin_transaction($conn);
-
-    // Fetch the user's email from the deposit table
-    $query_get_user_email = "SELECT email FROM user_form WHERE id = $user_id";
-    $result_get_user_email = mysqli_query($conn, $query_get_user_email);
-
-    if ($result_get_user_email) {
-        $row = mysqli_fetch_assoc($result_get_user_email);
-        $email = $row['email'];
-
-        // Fetch the current total deposit amount of the user
-        $query_get_total_deposit = "SELECT current_deposit AS total_deposits FROM user_deposit_total WHERE user_id = $user_id";
-        $result_get_total_deposit = mysqli_query($conn, $query_get_total_deposit);
-
-        if ($result_get_total_deposit) {
-            $row = mysqli_fetch_assoc($result_get_total_deposit);
-            $current_total_deposit = $row['total_deposits'];
-
-            // Check if the user has sufficient balance
-            if ($current_total_deposit !== null && $current_total_deposit >= $amount) {
-                // Deduct the amount from the user's total deposit
-                $new_total_deposit = $current_total_deposit - $amount;
-                $query_update_deposit = "UPDATE user_deposit_total SET current_deposit = $new_total_deposit WHERE user_id = $user_id";
-                $result_update_deposit = mysqli_query($conn, $query_update_deposit);
-
-                if ($result_update_deposit) {
-                    // Default status
-                    $default_status = "paid";
-                
-                    // Insert the withdrawal record into the withdrawals table
-                    $query_insert_withdrawal = "INSERT INTO withdrawals (user_id, total_withdrawal, email, status) VALUES ('$user_id', '$amount', '$email', '$default_status')";
-                    $result_insert_withdrawal = mysqli_query($conn, $query_insert_withdrawal);
-                    if ($result_insert_withdrawal) {
-                        // Commit the transaction
-                        mysqli_commit($conn);
-
-                        // Payment successful
-                        $_SESSION['payment_message']  = "Your payment has been successfully processed! Have a wonderful stay and feel free to reach out if you need anything.";
-                        
-                    } else {
-                        // Rollback the transaction due to error inserting withdrawal record
-                        mysqli_rollback($conn);
-                        // Error inserting withdrawal record
-                        $message[] = "Error inserting withdrawal record: " . mysqli_error($conn);
-                    }
-                } else {
-                    // Rollback the transaction due to error updating deposit amount
-                    mysqli_rollback($conn);
-                    // Error updating deposit amount
-                    $message[] = "Error updating deposit amount: " . mysqli_error($conn);
-                }
-            } else {
-                // Insufficient balance
-                $_SESSION['payment_message'] = 'Insufficient balance. Please add funds to your account.';
-                // $message[] = "Insufficient balance. Please add funds to your account.";
-                // header("Location: index.php");
-            }
-        } else {
-            // Error fetching total deposit amount
-            $message[] = "Error fetching total deposit amount: " . mysqli_error($conn);
-        }
-    } else {
-        // Error fetching user's email
-        $message[] = "Error fetching user's email: " . mysqli_error($conn);
-    }
-
-    if (isset($_SESSION['payment_message'])) {
-        $message = array($_SESSION['payment_message']);
-        // Unset the session variable
-        unset($_SESSION['payment_message']);
-    }
-}
-// Fetch airbnb data from the database
-$sql_get_bnb_detail = "SELECT * FROM bnb_details";
-$result_get_bnb_detail = mysqli_query($conn, $sql_get_bnb_detail);
-?>
-
-
-
 <!doctype html>
 <html lang="en">
 
@@ -122,7 +25,7 @@ $result_get_bnb_detail = mysqli_query($conn, $sql_get_bnb_detail);
                             <div class="page-breadcrumb">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.php" class="breadcrumb-link">Dashboard</a></li>
+                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
                                         <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Airbnb</a></li>
                                     </ol>
                                 </nav>
