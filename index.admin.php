@@ -135,7 +135,7 @@ if(isset($_POST['submit'])){
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="card-header">
                         <h3 class="mb-1">Login Form</h3>
-                        <p>Please enter your user information.</p>
+                        <p>Please enter your Admin information.</p>
                     </div>
                     <?php
                     if (isset($message)) {
