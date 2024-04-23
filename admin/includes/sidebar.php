@@ -16,9 +16,7 @@
                             <li class="nav-item ">
                                 <a class="nav-link" href="index.php"><i class="fa fa-fw fa-tachometer-alt"></i> Dashboard</a>
                             </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="currency.php"><i class="fa fa-fw fa-dollar-sign"></i> Currency</a>
-                            </li>
+                            
                             <li class="nav-item ">
                                 <a class="nav-link" href="member.php"><i class="fa fa-fw fa-users"></i> Members</a>
                             </li>
@@ -26,13 +24,19 @@
                                 <a class="nav-link" href="update-bnb.php"><i class="fa fa-fw fa-pencil-alt"></i>Update available rooms</a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="deposit.php"><i class="fa fa-fw fa-credit-card"></i> Deposit</a>
+                                <a class="nav-link" href="deposit.php"><i class="fa fa-fw fa-arrow-circle-up"></i> Deposit</a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="withdraw.php"><i class="fa fa-fw fa-money-bill-alt"></i> Withdrawal</a>
+                            <a class="nav-link" href="withdraw.php"><i class="fas fa-fw fa-hand-holding-usd"></i> Withdrawal</a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="available-bnb.php"><i class="fa fa-fw fa-home"></i>Available rooms</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="currency.php"><i class="fa fa-fw fa-dollar-sign"></i> Currency</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="payment.php"><i class="fa fa-fw fa-money-bill-alt"></i> Method of Payment</a>
                             </li>
                             <!-- <li class="nav-item ">
                                 <a class="nav-link" href="logs.php"><i class="fa fa-fw fa-recycle"></i> Logs</a>

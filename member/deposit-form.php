@@ -12,6 +12,17 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+
+$currency_query = "SELECT currency_symbol FROM currency ORDER BY currency_symbol ASC";
+$currency_result = mysqli_query($conn, $currency_query);
+
+// Check for errors
+if (!$currency_result) {
+    die("Error: " . mysqli_error($conn));
+}
+
+
+
 // Fetch email from user_form table based on user_id
 $user_id = $_SESSION['user_id'];
 $email_query = "SELECT email FROM user_form WHERE id = '$user_id'";
@@ -165,8 +176,16 @@ if (isset($_POST['submit'])) {
                                                         <label for="firstName">Currency</label>
                                                         <select class="custom-select d-block w-100" name="currency" required="">
                                                             <option value="">Choose...</option>
-                                                            <option>USD</option>
-                                                            <option>KSH</option>
+                                                            <?php
+                                                            // Fetch currency data from the database
+                                                            // $currency_result = mysqli_query($conn, "SELECT currency_symbol FROM currency");
+                                                            if ($currency_result) {
+                                                                // Loop through the results and generate option tags
+                                                                while ($row = mysqli_fetch_assoc($currency_result)) {
+                                                                    echo '<option>' . $row['currency_symbol'] . '</option>';
+                                                                }
+                                                            }
+                                                            ?>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
