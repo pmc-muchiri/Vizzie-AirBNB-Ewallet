@@ -11,23 +11,24 @@ include '/opt/lampp/htdocs/vizzie_system/web/config.php';
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Prepare and bind parameters
-    $stmt = $conn->prepare("INSERT INTO bnb_details (title, description, price, image_path) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssds", $title, $description, $price, $imagePath);
+    $stmt = $conn->prepare("INSERT INTO bnb_details (title, description, price, image_path, location) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssdss", $title, $description, $price, $imagePath, $location);
 
     // Set parameters
     $title = $_POST['title'];
     $description = $_POST['description'];
     $price = $_POST['price'];
+    $location =  $_POST['location'];
 
     // Check if file is uploaded successfully
     if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
         // Generate a unique filename to prevent collisions
         $fileName = uniqid() . '_' . basename($_FILES['image']['name']);
-        $imagePath = 'upload_images/' . $fileName;
+        $imagePath = '../admin/upload_images/' . $fileName;
 
         // Create the upload_images directory if it doesn't exist
-        if (!file_exists('upload_images')) {
-            mkdir('upload_images', 0777, true);
+        if (!file_exists('../admin/upload_images')) {
+            mkdir('../admin/upload_images', 0777, true);
         }
 
         // Move uploaded file to the uploads directory
@@ -120,15 +121,19 @@ if (isset($_SESSION['update-bnb'])) {
                                 <form action="update-bnb.php" method="POST" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="title">Title</label>
-                                        <input type="text" class="form-control" id="title" name="title" required>
+                                        <input type="text" class="form-control" id="title" name="title" required placeholder="Goshen AirBNB">
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
                                         <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
                                     </div>
                                     <div class="form-group">
+                                        <label for="price">Location</label>
+                                        <input type="text" class="form-control" id="location" name="location" required placeholder="Nairobi Kenya">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="price">Price</label>
-                                        <input type="number" class="form-control" id="price" name="price" required>
+                                        <input type="number" class="form-control" id="price" name="price" required placeholder="4500">
                                     </div>
                                     <div class="form-group">
                                         <label for="image">Image</label>

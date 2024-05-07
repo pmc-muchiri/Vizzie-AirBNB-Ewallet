@@ -91,6 +91,25 @@ if (isset($_POST['pay_now'])) {
 // Fetch airbnb data from the database
 $sql_get_bnb_detail = "SELECT * FROM bnb_details";
 $result_get_bnb_detail = mysqli_query($conn, $sql_get_bnb_detail);
+
+
+
+$sql_get_bnb_detail = "SELECT * FROM bnb_details";
+$result_get_bnb_detail = mysqli_query($conn, $sql_get_bnb_detail);
+
+// Check if there are no records
+if(mysqli_num_rows($result_get_bnb_detail) === 0) {
+    echo "We have no rooms currently.";
+} else {
+    // Iterate over the result set and display room details
+    while($row = mysqli_fetch_assoc($result_get_bnb_detail)) {
+        // Display room details here
+        echo "Room ID: " . $row['room_id'] . "<br>";
+        echo "Room Name: " . $row['room_name'] . "<br>";
+        // Display other room details as needed
+        echo "<br>";
+    }
+}
 ?>
 
 
@@ -147,11 +166,12 @@ $result_get_bnb_detail = mysqli_query($conn, $sql_get_bnb_detail);
                             ?>
                             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="card">
-                                    <img class="card-img-top" src="../admin/<?php echo $row['image_path']; ?>" alt="">
+                                    <img class="card-img-top" src="<?php echo $row['image_path']; ?>" alt="">
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo $row['title']; ?></h5>
+                                        <p class="card-text"><i class="fas fa-map-marker-alt"></i> <?php echo $row['location'];?></p>
                                         <p class="card-text"><?php echo $row['description']; ?></p>
-                                        <p class="card-text">Price: ksh. <?php echo $row['price']; ?> per night</p>
+                                        <p class="card-text"><b>Price: ksh. <?php echo $row['price']; ?> per night</b></p>
                                         
                                         <form action="" method="post">
                                             <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">

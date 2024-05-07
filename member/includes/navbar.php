@@ -46,8 +46,8 @@ if(isset($_GET['logout'])) {
                 <li class="nav-item dropdown nav-user">
                     <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?php if(isset($fetch['image']) && !empty($fetch['image'])): ?>
-                        <img src="../assets/images/default-avatar.png" alt="Default Profile Picture" class="user-avatar-md rounded-circle">
-                        <!-- <img src="<?php echo $fetch['image']; ?>" alt="User Profile Picture" class="user-avatar-md rounded-circle"> -->
+                        
+                        <img src="<?php echo $fetch['image']; ?>" alt="User Profile Picture" class="user-avatar-md rounded-circle">
                     <?php else: ?>
                         <!-- Default profile picture or placeholder -->
                         <img src="../assets/images/default-avatar.png" alt="Default Profile Picture" class="user-avatar-md rounded-circle">

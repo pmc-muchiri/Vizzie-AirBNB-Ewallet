@@ -61,11 +61,12 @@ $result_get_bnb_detail = mysqli_query($conn, $sql_get_bnb_detail);
                             ?>
                             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="card">
-                                    <img class="card-img-top" src="../admin/<?php echo $row['image_path']; ?>" alt="">
+                                    <img class="card-img-top" src="<?php echo $row['image_path']; ?>" alt="">
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo $row['title']; ?></h5>
+                                        
                                         <p class="card-text"><?php echo $row['description']; ?></p>
-                                        <p class="card-text">Price: ksh. <?php echo $row['price']; ?> per night</p>
+                                        <p class="card-text"><b>Price: ksh. <?php echo $row['price']; ?> per night</b></p>
                                         
                                         <form action="" method="post">
                                             <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
@@ -78,103 +79,7 @@ $result_get_bnb_detail = mysqli_query($conn, $sql_get_bnb_detail);
                             <?php
                         }
                         ?>
-                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <img class="card-img-top" src="../admin/upload_images/6625ec9162205_kitchen-1336160.jpg" alt="Airbnb Option 1">
-                            <div class="card-body">
-                                <h5 class="card-title">Wales Airbnb</h5>
-                                <p class="card-text">Enjoy your stay in this cozy beachfront bungalow, just steps away from the ocean. Perfect for a romantic getaway or a relaxing vacation.</p>
-                                <p class="card-text">Price: ksh. 8,500 per night</p>
-                                
-                                <form id="paymentForm1" action="" method="post">
-                                    <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                                    <input type="hidden" name="amount" value="8500"> 
-                                    <!-- <button type="submit" name="pay_now" class="btn btn-primary">Pay Now</button> -->
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <img class="card-img-top" src="../assets/images/bnb/kitchen-1336160.jpg" alt="Airbnb Option 1">
-                            <div class="card-body">
-                                <h5 class="card-title">Wales Airbnb</h5>
-                                <p class="card-text">Enjoy your stay in this cozy beachfront bungalow, just steps away from the ocean. Perfect for a romantic getaway or a relaxing vacation.</p>
-                                <p class="card-text">Price: ksh. 15,500 per night</p>
-                                
-                                <form id="paymentForm1" action="" method="post">
-                                    <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                                    <input type="hidden" name="amount" value="15500"> 
-                                    <!-- <button type="submit" name="pay_now" class="btn btn-primary">Pay Now</button> -->
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <img class="card-img-top" src="../assets/images/bnb/kitchen-1687121_1280.jpg" alt="Airbnb Option 1">
-                            <div class="card-body">
-                                <h5 class="card-title">Wales Airbnb</h5>
-                                <p class="card-text">Enjoy your stay in this cozy beachfront bungalow, just steps away from the ocean. Perfect for a romantic getaway or a relaxing vacation.</p>
-                                <p class="card-text">Price: ksh. 12,500 per night</p>
-                                
-                                <form id="paymentForm1" action="" method="post">
-                                    <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                                    <input type="hidden" name="amount" value="12500"> 
-                                    <!-- <button type="submit" name="pay_now" class="btn btn-primary">Pay Now</button> -->
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <img class="card-img-top" src="../assets/images/bnb/apartment-3612030.jpg" alt="Airbnb Option 1">
-                            <div class="card-body">
-                                <h5 class="card-title">Wales Airbnb</h5>
-                                <p class="card-text">Enjoy your stay in this cozy beachfront bungalow, just steps away from the ocean. Perfect for a romantic getaway or a relaxing vacation.</p>
-                                <p class="card-text">Price: ksh. 3,500 per night</p>
-                                
-                                <form id="paymentForm1" action="" method="post">
-                                    <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                                    <input type="hidden" name="amount" value="3500"> 
-                                    <!-- <button type="submit" name="pay_now" class="btn btn-primary">Pay Now</button> -->
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <img class="card-img-top" src="../assets/images/bnb/beach-house-1505461.jpg" alt="Airbnb Option 1">
-                            <div class="card-body">
-                                <h5 class="card-title">Wales Airbnb</h5>
-                                <p class="card-text">Enjoy your stay in this cozy beachfront bungalow, just steps away from the ocean. Perfect for a romantic getaway or a relaxing vacation.</p>
-                                <p class="card-text">Price: ksh. 5,500 per night</p>
-                                
-                                <form id="paymentForm1" action="" method="post">
-                                    <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                                    <input type="hidden" name="amount" value="5500"> 
-                                    <!-- <button type="submit" name="pay_now" class="btn btn-primary">Pay Now</button> -->
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <img class="card-img-top" src="../assets/images/bnb/bnb.png" alt="Airbnb Option 1">
-                            <div class="card-body">
-                                <h5 class="card-title">Wales Airbnb</h5>
-                                <p class="card-text">Enjoy your stay in this cozy beachfront bungalow, just steps away from the ocean. Perfect for a romantic getaway or a relaxing vacation.</p>
-                                <p class="card-text">Price: ksh. 7,300 per night</p>
-                                
-                                <form id="paymentForm1" action="" method="post">
-                                    <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                                    <input type="hidden" name="amount" value="7300"> 
-                                    <!-- <button type="submit" name="pay_now" class="btn btn-primary">Pay Now</button> -->
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                        
                 </div>
                 </div>
             </div>

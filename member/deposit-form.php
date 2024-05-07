@@ -192,10 +192,16 @@ if (isset($_POST['submit'])) {
                                                         <label for="lastName">Payment Gateway</label>
                                                         <select class="custom-select d-block w-100" name="payment_gateway" required="">
                                                             <option value="">Choose...</option>
-                                                            <option>M-Pesa</option>
-                                                            <option>BitCoin</option>
-                                                            <option>Paypal</option>
-                                                            <option>Crypto</option>
+                                                            <?php
+                                                            //Fetch currency data from the database
+                                                            $payment_result = mysqli_query($conn, "SELECT payment_gateway FROM payment_gateway");
+                                                            if ($payment_result) {
+                                                                // Loop through the results and generate option tags
+                                                                while ($row = mysqli_fetch_assoc($payment_result)) {
+                                                                    echo '<option>' . $row['payment_gateway'] . '</option>';
+                                                                }
+                                                            }
+                                                            ?>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-12 mb-3">
