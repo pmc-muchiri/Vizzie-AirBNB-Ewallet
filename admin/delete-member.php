@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
     // Include database connection
     include '/opt/lampp/htdocs/vizzie_system/web/config.php';
 

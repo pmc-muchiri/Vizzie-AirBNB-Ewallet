@@ -143,8 +143,8 @@ if(isset($_POST['submit'])) {
                     <div class="form-group">
                         <input type="password" name="cpassword" placeholder="confirm password" class="form-control form-control-lg" required="">
                     </div>
-                    <label for="">Upload your Profile</label>
-                    <input type="file" name="image" class="box" accept="image/jpg, image/jpeg, image/png" required="">
+                    <!-- <label for="">Upload your Profile</label>
+                    <input type="file" name="image" class="box" accept="image/jpg, image/jpeg, image/png" required=""> -->
                     <div class="form-group pt-2">
                         <button class="btn btn-block btn-primary" name="submit" type="submit">Register My Account</button>
                     </div>
