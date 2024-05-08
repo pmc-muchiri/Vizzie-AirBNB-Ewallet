@@ -4,6 +4,12 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 include '/opt/lampp/htdocs/vizzie_system/web/config.php';
+// Fetch available rooms
+$query_rooms = "SELECT COUNT(*) AS total_rooms FROM bnb_details";
+$result_rooms = mysqli_query($conn, $query_rooms);
+$row_rooms = mysqli_fetch_assoc($result_rooms);
+$total_rooms = $row_rooms['total_rooms'];
+
 // Fetch number of members from the database
 $query_members = "SELECT COUNT(*) AS total_members FROM user_form";
 $result_members = mysqli_query($conn, $query_members);
@@ -77,7 +83,7 @@ $total_deposit = $row_transactions['total_deposit'];
 	                                <div class="card-body">
 	                                    <div class="d-inline-block">
 	                                        <h5 class="text-muted">Available BNBs</h5>
-	                                        <h2 class="mb-0">7</h2> 
+	                                        <h2 class="mb-0"><?php echo $total_rooms?></h2> 
 	                                    </div>
 	                                    <div class="float-right icon-circle-medium  icon-box-lg  bg-info-light mt-1">
                                             <i class="fas fa-home fa-fw fa-sm text-info"></i>

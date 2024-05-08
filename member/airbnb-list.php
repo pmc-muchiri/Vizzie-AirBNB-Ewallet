@@ -93,23 +93,19 @@ $sql_get_bnb_detail = "SELECT * FROM bnb_details";
 $result_get_bnb_detail = mysqli_query($conn, $sql_get_bnb_detail);
 
 
-
-$sql_get_bnb_detail = "SELECT * FROM bnb_details";
-$result_get_bnb_detail = mysqli_query($conn, $sql_get_bnb_detail);
-
-// Check if there are no records
-if(mysqli_num_rows($result_get_bnb_detail) === 0) {
-    echo "We have no rooms currently.";
-} else {
-    // Iterate over the result set and display room details
-    while($row = mysqli_fetch_assoc($result_get_bnb_detail)) {
-        // Display room details here
-        echo "Room ID: " . $row['room_id'] . "<br>";
-        echo "Room Name: " . $row['room_name'] . "<br>";
-        // Display other room details as needed
-        echo "<br>";
-    }
-}
+// // Check if there are no records
+// if(mysqli_num_rows($result_get_bnb_detail) === 0) {
+//     echo "We have no rooms currently.";
+// } else {
+//     // Iterate over the result set and display room details
+//     while($row = mysqli_fetch_assoc($result_get_bnb_detail)) {
+//         // Display room details here
+//         echo "Room ID: " . $row['room_id'] . "<br>";
+//         echo "Room Name: " . $row['room_name'] . "<br>";
+//         // Display other room details as needed
+//         echo "<br>";
+//     }
+// }
 ?>
 
 
