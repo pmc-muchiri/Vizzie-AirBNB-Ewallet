@@ -131,55 +131,65 @@ $result_get_bnb_detail = mysqli_query($conn, $sql_get_bnb_detail);
                 <!-- pageheader -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="page-header">
-                            <h2 class="pageheader-title"><i class="fa fa-fw fa-home"></i> Available Airbnb </h2>
-                            <div class="page-breadcrumb">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.php" class="breadcrumb-link">Dashboard</a></li>
-                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Airbnb</a></li>
-                                    </ol>
-                                </nav>
-                            </div></br>
-                            <div id="messageContainer" class="text-center">
-                                <?php
-                                if (isset($message)) {
-                                    foreach ($message as $msg) {
-                                        echo '<div class="alert alert-info" role="alert">' . $msg . '</div>';
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="page-header">
+                                <h2 class="pageheader-title"><i class="fa fa-fw fa-home"></i> Available Airbnb </h2>
+                                <div class="page-breadcrumb">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="index.php" class="breadcrumb-link">Dashboard</a></li>
+                                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Airbnb</a></li>
+                                        </ol>
+                                    </nav>
+                                </div></br>
+                                <div id="messageContainer" class="text-center">
+                                    <?php
+                                    // Default message when no Airbnb listings are available
+                                    if (mysqli_num_rows($result_get_bnb_detail) == 0) {
+                                        echo '<div class="alert alert-info" role="alert">We don’t have any rooms for now, kindly check in later.</div>';
                                     }
-                                }
-                                ?>
-                        </div>
-                    </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- end pageheader -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <?php
-                        while ($row = mysqli_fetch_assoc($result_get_bnb_detail)) {
-                            ?>
-                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-                                <div class="card">
-                                    <img class="card-img-top" src="<?php echo $row['image_path']; ?>" alt="">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><?php echo $row['title']; ?></h5>
-                                        <p class="card-text"><i class="fas fa-map-marker-alt"></i> <?php echo $row['location'];?></p>
-                                        <p class="card-text"><?php echo $row['description']; ?></p>
-                                        <p class="card-text"><b>Price: ksh. <?php echo $row['price']; ?> per night</b></p>
-                                        
-                                        <form action="" method="post">
-                                            <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                                            <input type="hidden" name="amount" value="<?php echo $row['price']; ?>">
-                                            <button type="submit" name="pay_now" class="btn btn-primary">Pay Now</button>
-                                        </form>
-                                    </div>
+                                    // Display messages if there are any set in the session or elsewhere
+                                    if (isset($message)) {
+                                        foreach ($message as $msg) {
+                                            echo '<div class="alert alert-info" role="alert">' . $msg . '</div>';
+                                        }
+                                    }
+                                    ?>
                                 </div>
                             </div>
-                            <?php
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- end pageheader -->
+                    <!-- ============================================================== -->
+                    <div class="row">
+                        <?php
+                        if (mysqli_num_rows($result_get_bnb_detail) > 0) {
+                            while ($row = mysqli_fetch_assoc($result_get_bnb_detail)) {
+                                ?>
+                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="card">
+                                        <img class="card-img-top" src="<?php echo $row['image_path']; ?>" alt="">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><?php echo $row['title']; ?></h5>
+                                            <p class="card-text"><i class="fas fa-map-marker-alt"></i> <?php echo $row['location']; ?></p>
+                                            <p class="card-text"><?php echo $row['description']; ?></p>
+                                            <p class="card-text"><b>Price: ksh. <?php echo $row['price']; ?> per night</b></p>
+                                            
+                                            <form action="" method="post">
+                                                <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                                                <input type="hidden" name="amount" value="<?php echo $row['price']; ?>">
+                                                <button type="submit" name="pay_now" class="btn btn-primary">Pay Now</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
                         }
                         ?>
+                    </div>
+
                     <!-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
                         <div class="card">
                             <img class="card-img-top" src="../assets/images/bnb/dining-room-3108037_1920.jpg" alt="Airbnb Option 1">
@@ -292,12 +302,12 @@ $result_get_bnb_detail = mysqli_query($conn, $sql_get_bnb_detail);
     <script src="../assets/vendor/multi-select/js/jquery.multi-select.js"></script>
     <script src="../assets/libs/js/main-js.js"></script>
     <script>
-        setTimeout(function() {
-            var messageContainer = document.getElementById('messageContainer');
-            if (messageContainer) {
-                messageContainer.style.display = 'none';
-            }
-        }, 3000); // 3 seconds
+        //setTimeout(function() {
+            // var messageContainer = document.getElementById('messageContainer');
+        //     if (messageContainer) {
+        //         messageContainer.style.display = 'none';
+        //     }
+        // }, 3000); // 3 seconds
     </script>
 </body>
 
